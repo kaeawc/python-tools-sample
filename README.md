@@ -21,16 +21,6 @@ pip install -r requirements.txt
 We have a `Makefile` that allows you to do lint, unit test, and coverage reporting on the sample codebase.
 
 ```bash
-> make
-Enumerating objects: 9, done.
-Counting objects: 100% (9/9), done.
-Delta compression using up to 12 threads
-Compressing objects: 100% (4/4), done.
-Writing objects: 100% (5/5), 554 bytes | 554.00 KiB/s, done.
-Total 5 (delta 3), reused 0 (delta 0)
-remote: Resolving deltas: 100% (3/3), completed with 3 local objects.
-To github.com:kaeawc/python-tools-sample.git
-   1917822..6982393  master -> master
 (venv) ~/kaeawc/python-tools-sample (master ✔) ᐅ make
 rm -f find test-reports/pycodestyle.log
 pycodestyle sample | tee test-reports/pycodestyle.log
