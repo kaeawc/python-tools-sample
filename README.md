@@ -10,10 +10,10 @@ This is a repository of how to use code analysis with continuous integration ser
 
 We have a `Makefile` that allows you to do lint, unit test, and coverage reporting on the sample codebase.
 
-# CircleCI
+# [CircleCI](https://circleci.com/gh/kaeawc/python-tools-sample)
 
-Circle currently does checks on every commit to kick off lint, unit test, and coverage reporting
+CircleCI currently does checks on every commit to kick off lint, unit test, and coverage reporting.
 
-# CodeCov
+# [CodeCov](https://codecov.io/gh/kaeawc/python-tools-sample)
 
 This is a web service that shows how coverage is changing per commit in both lines and complexity. It comments on pull requests about how the changes are effecting overall codebase coverage and where the biggest impacts are.
