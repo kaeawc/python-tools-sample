@@ -30,7 +30,7 @@ jobs:
           name: Lint
           command: |
             . venv/bin/activate
-            pycodestyle sample > 
+            pycodestyle sample | tee test-reports/pycodestyle.log
 
       - run:
           name: Unit Tests
