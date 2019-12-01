@@ -38,19 +38,19 @@ jobs:
           command: |
             . venv/bin/activate
             mkdir -p test-reports
-            python manage.py coverage run -a --omit=lib nose2 -c unittest.cfg
+            coverage run -a --omit=lib nose2 -c unittest.cfg
 
       - run:
           name: HTML Coverage Report
           command: |
             . venv/bin/activate
-            python manage.py coverage html
+            coverage html
 
       - run:
           name: XML Coverage Report
           command: |
             . venv/bin/activate
-            python manage.py coverage xml
+            coverage xml
 
       - store_artifacts:
           path: test-reports
