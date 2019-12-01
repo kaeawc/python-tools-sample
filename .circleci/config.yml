@@ -1,0 +1,46 @@
+version: 2.1
+defaults: &defaults
+  docker:
+    - image: circleci/python:3.7.5
+
+jobs:
+  unit_tests:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependencies-{{ checksum "requirements.txt" }}
+      - run:
+          name: Dependencies
+          command: pip3 install -r requirements.txt
+      - run:
+          name: Lint
+          command: make lint
+      - run:
+          name: Run All Unit Tests
+          command: coverage run -a --omit=lib nose2 -c unittest.cfg
+      - run:
+          name: Run All Unit Tests
+          command: coverage html
+      - run:
+          name: Run All Unit Tests
+          command: coverage xml
+      - store_artifacts:
+          path: pep8.log
+      - store_test_results:
+          path: "junit-results.xml"
+      - run:
+          name: Send coverage reports to CodeCov
+          command: bash <(curl -s https://codecov.io/bash) -X gcov -X coveragepy -f "*testInternalDebugUnitTestCoverage.xml"
+      - save_cache:
+          key: dependencies-{{ checksum "requirements.txt" }}
+          paths:
+          - ~/bin
+          - ~/include
+          - ~/lib
+
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - unit_tests
