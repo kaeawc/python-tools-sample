@@ -23,7 +23,7 @@ exclude_lines =
 ignore_errors = True
 
 [html]
-directory = $CIRCLE_ARTIFACTS
+directory = test-reports
 
 [xml]
-output = $CIRCLE_ARTIFACTS/coverage.xml
+output = test-reports/coverage.xml
