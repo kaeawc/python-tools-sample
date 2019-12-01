@@ -9,36 +9,50 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependencies-{{ checksum "requirements.txt" }}
+          keys:
+            - v1-dependencies-{{ checksum "requirements.txt" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
       - run:
-          name: Dependencies
-          command: pip3 install -r requirements.txt
+          name: install dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
+
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "requirements.txt" }}
+
       - run:
           name: Lint
-          command: make lint
-      - run:
-          name: Run All Unit Tests
-          command: coverage run -a --omit=lib nose2 -c unittest.cfg
-      - run:
-          name: Run All Unit Tests
-          command: coverage html
-      - run:
-          name: Run All Unit Tests
-          command: coverage xml
-      - store_artifacts:
-          path: pep8.log
-      - store_test_results:
-          path: "junit-results.xml"
-      - run:
-          name: Send coverage reports to CodeCov
-          command: bash <(curl -s https://codecov.io/bash) -X gcov -X coveragepy -f "*testInternalDebugUnitTestCoverage.xml"
-      - save_cache:
-          key: dependencies-{{ checksum "requirements.txt" }}
-          paths:
-          - ~/bin
-          - ~/include
-          - ~/lib
+          command: |
+            . venv/bin/activate
+            pycodestyle sample > 
 
+      - run:
+          name: Unit Tests
+          command: |
+            . venv/bin/activate
+            python manage.py coverage run -a --omit=lib nose2 -c unittest.cfg
+
+      - run:
+          name: HTML Coverage Report
+          command: |
+            . venv/bin/activate
+            python manage.py coverage html
+
+      - run:
+          name: XML Coverage Report
+          command: |
+            . venv/bin/activate
+            python manage.py coverage xml
+
+      - store_artifacts:
+          path: test-reports
+          destination: test-reports
 workflows:
   version: 2
   commit:

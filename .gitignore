@@ -1,6 +1,4 @@
-junit-results.xml
-pep8.log
-pep8.out
+test-reports/
 
 # Python VirtualEnv
 .Python
@@ -8,3 +6,4 @@ include/
 lib/
 bin/
 share/
+venv/

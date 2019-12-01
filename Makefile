@@ -4,26 +4,32 @@
 build: lint test
 
 run-lint:
-	pep8 sample | tee pep8.log || true
+	pycodestyle sample | tee test-reports/pycodestyle.log
 
 clean-lint:
-	rm -f pep8.out
-	rm -f pep8.log
+	rm -f find test-reports/pycodestyle.log
 
 lint: clean-lint run-lint
-	cat pep8.log > total
-	cat total | sed 's/.*.py:[0-9]*:[0-9]*: //' | sed 's/(.*//' | sort > pep8.out
-	cat pep8.out | uniq -c | tee -a pep8.log
-	wc -l total | tee -a pep8.log
-	rm total
+	find test-reports/pycodestyle.log
 
 run-test:
 	nose2 -c unittest.cfg
 
 clean-test:
 	rm -rf htmlcov
-	rm -f junit-results.xml
+	rm -f test-reports/junit-results.xml
 	rm -f .coverage
 
 test: clean-test run-test
-	find junit-results.xml || true
+	find test-reports/junit-results.xml
+
+run-coverage:
+	coverage nose2 -c unittest.cfg
+
+clean-coverage:
+	rm -rf htmlcov
+	rm -f test-reports/junit-results.xml
+	rm -f .coverage
+
+coverage: clean-coverage run-coverage
+	find .coverage
