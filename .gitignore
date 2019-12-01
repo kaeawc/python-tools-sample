@@ -7,3 +7,4 @@ pep8.out
 include/
 lib/
 bin/
+share/
