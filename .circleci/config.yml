@@ -41,16 +41,16 @@ jobs:
             coverage run -a --omit=lib venv/bin/nose2 -c unittest.cfg
 
       - run:
-          name: HTML Coverage Report
-          command: |
-            . venv/bin/activate
-            coverage html
-
-      - run:
           name: XML Coverage Report
           command: |
             . venv/bin/activate
             coverage xml
+
+      - run:
+          name: Upload report to Codecov
+          command: |
+            . venv/bin/activate
+            codecov --file=test-reports/coverage.xml --token=$CODECOV_TOKEN
 
       - store_artifacts:
           path: test-reports
