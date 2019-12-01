@@ -1,0 +1,10 @@
+cov-core==1.15.0
+coverage==4.5.4
+Delorean==1.0.0
+ipdb==0.12.2
+mock==3.0.5
+nose2==0.9.1
+pep8==1.7.1
+pytest==5.3.1
+python-coveralls==2.9.3
+requests==2.22.0
