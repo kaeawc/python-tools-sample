@@ -38,7 +38,7 @@ jobs:
           command: |
             . venv/bin/activate
             mkdir -p test-reports
-            coverage run -a --omit=lib nose2 -c unittest.cfg
+            coverage run -a --omit=lib venv/bin/nose2 -c unittest.cfg
 
       - run:
           name: HTML Coverage Report
